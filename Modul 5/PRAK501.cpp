@@ -6,9 +6,10 @@
 
 using namespace std;
 
-void insertionSort(string arr[], int n) {
+void insertionSort(string &arr) {
+    int n = arr.length();
     for (int i = 1; i < n; i++) {
-        string key = arr[i];
+        char key = arr[i];
         int j = i - 1;
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
@@ -18,15 +19,12 @@ void insertionSort(string arr[], int n) {
     }
 }
 
-void merge(string arr[], int l, int m, int r) {
+void merge(string &arr, int l, int m, int r) {
     int n1 = m - l + 1;
     int n2 = r - m;
     
-    string *L = new string[n1];
-    string *R = new string[n2];
-    
-    for (int i = 0; i < n1; i++) L[i] = arr[l + i];
-    for (int j = 0; j < n2; j++) R[j] = arr[m + 1 + j];
+    string L = arr.substr(l, n1);
+    string R = arr.substr(m + 1, n2);
     
     int i = 0, j = 0, k = l;
     while (i < n1 && j < n2) {
@@ -36,12 +34,9 @@ void merge(string arr[], int l, int m, int r) {
     }
     while (i < n1) { arr[k] = L[i]; i++; k++; }
     while (j < n2) { arr[k] = R[j]; j++; k++; }
-    
-    delete[] L;
-    delete[] R;
 }
 
-void mergeSort(string arr[], int l, int r) {
+void mergeSort(string &arr, int l, int r) {
     if (l < r) {
         int m = l + (r - l) / 2;
         mergeSort(arr, l, m);
@@ -50,10 +45,11 @@ void mergeSort(string arr[], int l, int r) {
     }
 }
 
-void shellSort(string arr[], int n) {
+void shellSort(string &arr) {
+    int n = arr.length();
     for (int gap = n / 2; gap > 0; gap /= 2) {
         for (int i = gap; i < n; i += 1) {
-            string temp = arr[i];
+            char temp = arr[i];
             int j;
             for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
                 arr[j] = arr[j - gap];
@@ -62,7 +58,8 @@ void shellSort(string arr[], int n) {
     }
 }
 
-void bubbleSort(string arr[], int n) {
+void bubbleSort(string &arr) {
+    int n = arr.length();
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
@@ -72,7 +69,8 @@ void bubbleSort(string arr[], int n) {
     }
 }
 
-void selectionSort(string arr[], int n) {
+void selectionSort(string &arr) {
+    int n = arr.length();
     for (int i = 0; i < n - 1; i++) {
         int min_idx = i;
         for (int j = i + 1; j < n; j++)
@@ -82,8 +80,8 @@ void selectionSort(string arr[], int n) {
     }
 }
 
-int partition(string arr[], int low, int high) {
-    string pivot = arr[high];
+int partition(string &arr, int low, int high) {
+    char pivot = arr[high];
     int i = (low - 1);
     for (int j = low; j <= high - 1; j++) {
         if (arr[j] < pivot) {
@@ -95,7 +93,7 @@ int partition(string arr[], int low, int high) {
     return (i + 1);
 }
 
-void quickSort(string arr[], int low, int high) {
+void quickSort(string &arr, int low, int high) {
     if (low < high) {
         int pi = partition(arr, low, high);
         quickSort(arr, low, pi - 1);
@@ -103,25 +101,18 @@ void quickSort(string arr[], int low, int high) {
     }
 }
 
-void tampilkanArray(string arr[], int n) {
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << endl;
-}
-
 int main() {
     int pilihan;
-    string namaAsli[] = {"Doni", "Sigit", "Zidan", "Budi", "tungtung"}; 
-    string nimAsli[] = {"2", "5", "1", "0", "8", "1", "7", "1"};
-    int n_nama = 5;
-    int n_nim = 8;
-    string arrNama[5];
-    string arrNim[8];
+    // Variabel menggunakan Nama dan NIM praktikan
+    string namaAsli = "AhmadRiyadhi"; 
+    string nimAsli = "2510817110004";
+    string dataNama;
+    string dataNim;
 
     do {
         system("cls");
-        for(int i=0; i<n_nama; i++) arrNama[i] = namaAsli[i];
-        for(int i=0; i<n_nim; i++) arrNim[i] = nimAsli[i];
+        dataNama = namaAsli;
+        dataNim = nimAsli;
 
         cout << "SORTING" << endl;
         cout << "=======================" << endl;
@@ -138,34 +129,34 @@ int main() {
         cout << "\n--- HASIL EKSEKUSI ---" << endl;
         switch (pilihan) {
             case 1:
-                cout << "Data Awal Nama : "; tampilkanArray(arrNama, n_nama);
-                insertionSort(arrNama, n_nama);
-                cout << "Hasil Insertion Sort : "; tampilkanArray(arrNama, n_nama);
+                cout << "Data Awal Nama : " << dataNama << endl;
+                insertionSort(dataNama);
+                cout << "Hasil Insertion Sort : " << dataNama << endl;
                 break;
             case 2:
-                cout << "Data Awal Nama : "; tampilkanArray(arrNama, n_nama);
-                mergeSort(arrNama, 0, n_nama - 1);
-                cout << "Hasil Merge Sort : "; tampilkanArray(arrNama, n_nama);
+                cout << "Data Awal Nama : " << dataNama << endl;
+                mergeSort(dataNama, 0, dataNama.length() - 1);
+                cout << "Hasil Merge Sort : " << dataNama << endl;
                 break;
             case 3:
-                cout << "Data Awal Nama : "; tampilkanArray(arrNama, n_nama);
-                shellSort(arrNama, n_nama);
-                cout << "Hasil Shell Sort : "; tampilkanArray(arrNama, n_nama);
+                cout << "Data Awal Nama : " << dataNama << endl;
+                shellSort(dataNama);
+                cout << "Hasil Shell Sort : " << dataNama << endl;
                 break;
             case 4:
-                cout << "Data Awal NIM : "; tampilkanArray(arrNim, n_nim);
-                quickSort(arrNim, 0, n_nim - 1);
-                cout << "Hasil Quick Sort : "; tampilkanArray(arrNim, n_nim);
+                cout << "Data Awal NIM : " << dataNim << endl;
+                quickSort(dataNim, 0, dataNim.length() - 1);
+                cout << "Hasil Quick Sort : " << dataNim << endl;
                 break;
             case 5:
-                cout << "Data Awal NIM : "; tampilkanArray(arrNim, n_nim);
-                bubbleSort(arrNim, n_nim);
-                cout << "Hasil Bubble Sort : "; tampilkanArray(arrNim, n_nim);
+                cout << "Data Awal NIM : " << dataNim << endl;
+                bubbleSort(dataNim);
+                cout << "Hasil Bubble Sort : " << dataNim << endl;
                 break;
             case 6:
-                cout << "Data Awal NIM : "; tampilkanArray(arrNim, n_nim);
-                selectionSort(arrNim, n_nim);
-                cout << "Hasil Selection Sort : "; tampilkanArray(arrNim, n_nim);
+                cout << "Data Awal NIM : " << dataNim << endl;
+                selectionSort(dataNim);
+                cout << "Hasil Selection Sort : " << dataNim << endl;
                 break;
             case 7:
                 cout << "Program Selesai. Terima Kasih." << endl;
