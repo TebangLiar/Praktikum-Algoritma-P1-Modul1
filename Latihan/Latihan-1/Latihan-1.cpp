@@ -74,9 +74,10 @@ int main() {
         if(pil != 11) {
             cout << "\nPress any key to continue!" << endl;
             getch();
-            system("cls");
+            // system("cls"); baris ini dihapus agar layar tidak dibersihkan
         }
     } while (pil != 11);
+    
     return 0;
 }
 
@@ -156,7 +157,7 @@ void hapusDepan() {
         cout << "Masukkan nilai N (Hapus node ke-N dari depan) : ";
         cin >> n;
         int total = hitungNode();
-        
+
         if(n >= total) {
             TNode *hapus = tail;
             dataDelete = hapus->data;
@@ -205,7 +206,7 @@ void hapusBelakang() {
         cout << "Masukkan nilai N (Hapus node ke-N dari belakang) : ";
         cin >> n;
         int total = hitungNode();
-        
+
         if(n >= total) {
             TNode *hapus = head;
             dataDelete = hapus->data;
@@ -258,12 +259,12 @@ void hapusData() {
         TNode *bantu = head;
         TNode *sebelum = tail;
         bool apaDitemukan = false;
-        
+
         for(int i = 0; i < totalNode; i++) {
             if(bantu->data == cari) {
                 apaDitemukan = true;
                 TNode *hapus = bantu;
-                
+
                 if(head == tail) {
                     head = NULL;
                     tail = NULL;
